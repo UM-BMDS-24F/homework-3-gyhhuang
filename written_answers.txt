@@ -1,0 +1,40 @@
+(i) Choice of BLAST Program
+
+Since we are comparing protein sequences between human and mouse, 
+the appropriate BLAST program to use is blastp. This program is 
+designed specifically for protein-protein alignments. 
+In this case, blastp allows us to find similar or homologous protein 
+sequences in the mouse database (mouse.fa) for each human protein 
+sequence in human.fa.
+
+blastn (for nucleotide sequences) or tblastn (for translating 
+nucleotide sequences to compare with proteins) are other options.
+
+
+
+(ii) Choice of Substitution Matrix
+
+The default substitution matrix for blastp is BLOSUM, which is
+a common and generally effective choice for protein-protein comparisons.
+Other substitution matrices, like PAM matrices, could also be used,
+but BLOSUM is standard for BLAST searches involving proteins with 
+moderate similarity, making it a sensible choice here.
+
+
+
+(iii) Choice of Parameters
+
+-db mouse_db: Specifies the mouse protein database. This parameter directs BLAST to s
+earch against the mouse proteins to find homologous sequences.
+
+-query temp_query_file: This points to the temporary FASTA file containing one sequence from 
+human.fa. 
+
+-outfmt 5: This sets the output format to XML. XML format (option 5) is chosen
+because it is structured and compatible with Biopython’s NCBIXML parser, allowing 
+us to easily parse the results programmatically.
+
+-max_target_seqs 1: This limits the output to the top alignment (best match) for 
+each query. By setting it to 1, we only retrieve the most homologous sequence in 
+the mouse database for each human sequence. This is efficient, as it avoids 
+processing all potential matches and focuses only on the most relevant hit.
